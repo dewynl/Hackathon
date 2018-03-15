@@ -39,7 +39,7 @@ class Equipo(models.Model):
 
 
 class Participante(models.Model):
-    nombre = models.CharField(max_length=25)
+    nombre = models.CharField(max_length=50)
     equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE)
 
     def __str__(self):
