@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from evaluacion.entidades import Jurado, Criterio, Equipo, Evaluacion
+from evaluacion.models import Jurado, Criterio, Equipo, Evaluacion, Participante
 
 
 class JuradoAdmin(admin.ModelAdmin):
@@ -12,7 +12,11 @@ class CriterioAdmin(admin.ModelAdmin):
 
 
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'participante1', 'participante2', 'participante3', 'puntuacion')
+    list_display = ('nombre', 'puntuacion')
+
+
+class ParticipanteAdmin(admin.ModelAdmin):
+    list_display = ('nombre', 'equipo')
 
 
 class EvaluacionAdmin(admin.ModelAdmin):
@@ -22,4 +26,5 @@ class EvaluacionAdmin(admin.ModelAdmin):
 admin.site.register(Jurado, JuradoAdmin)
 admin.site.register(Criterio, CriterioAdmin)
 admin.site.register(Equipo, EquipoAdmin)
+admin.site.register(Participante, ParticipanteAdmin)
 admin.site.register(Evaluacion, EvaluacionAdmin)

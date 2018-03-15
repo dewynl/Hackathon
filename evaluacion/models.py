@@ -11,18 +11,36 @@ class Jurado(models.Model):
     nombre = models.CharField(max_length=25, null=False)
     tipo = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Criterio(models.Model):
     explicacion = models.TextField(max_length=70, null=False)
     tipo_jurado = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
 
+    def __str__(self):
+        return 'Criterio :' + self.pk
+
 
 class Equipo(models.Model):
     nombre = models.CharField(max_length=15, null=False, blank=False)
-    participante1 = models.CharField(max_length=25, null=False, blank=False)
-    participante2 = models.CharField(max_length=25, null=False, blank=False)
-    participante3 = models.CharField(max_length=25, null=False, blank=False)
     puntuacion = models.IntegerField(default=0)
+
+    # participante1 = models.CharField(max_length=25, null=False, blank=False)
+    # participante2 = models.CharField(max_length=25, null=False, blank=False)
+    # participante3 = models.CharField(max_length=25, null=False, blank=False)
+
+    def __str__(self):
+        return self.nombre
+
+
+class Participante(models.Model):
+    nombre = models.CharField(max_length=25)
+    equipo = models.ForeignKey(Equipo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombre
 
 
 class Evaluacion(models.Model):
