@@ -3,7 +3,9 @@ from django.db import models
 
 
 class TipoJurado(object):
-    TIPOS_JURADO = ((1, 'JURADO TECNICO'), (2, 'JURADO NO TECNICO'))
+    JURADO_TECNICO = 1
+    JURADO_NO_TECNICO = 2
+    TIPOS_JURADO = ((JURADO_TECNICO, 'JURADO TECNICO'), (JURADO_NO_TECNICO, 'JURADO NO TECNICO'))
 
 
 class Jurado(models.Model):
@@ -16,20 +18,21 @@ class Jurado(models.Model):
 
 
 class Criterio(models.Model):
-    explicacion = models.TextField(max_length=70, null=False)
+    nombre = models.CharField(max_length=12, null=False, blank=False, default='NombreDefault')
+    explicacion1 = models.TextField(max_length=150, null=False, default='')
+    explicacion2 = models.TextField(max_length=150, null=False, default='')
+    explicacion3 = models.TextField(max_length=150, null=False, default='')
+    explicacion4 = models.TextField(max_length=150, null=False, default='')
+    explicacion5 = models.TextField(max_length=150, null=False, default='')
     tipo_jurado = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
 
     def __str__(self):
-        return 'Criterio :' + self.pk
+        return self.nombre
 
 
 class Equipo(models.Model):
     nombre = models.CharField(max_length=15, null=False, blank=False)
     puntuacion = models.IntegerField(default=0)
-
-    # participante1 = models.CharField(max_length=25, null=False, blank=False)
-    # participante2 = models.CharField(max_length=25, null=False, blank=False)
-    # participante3 = models.CharField(max_length=25, null=False, blank=False)
 
     def __str__(self):
         return self.nombre

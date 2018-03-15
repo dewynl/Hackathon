@@ -18,7 +18,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >Hackathon PUCMM-Emprende 2018</a>
+                <a class="navbar-brand">Hackathon PUCMM-Emprende 2018</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -38,8 +38,55 @@
 {% block content %}
     <div class="list-group">
         <h1>Equipo {{ object.nombre }}</h1>
-        <table>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center" rowspan="2" width="15%">Criterio</th>
+                <th class="text-center" colspan="5">Rubrica</th>
+                <th class="text-center" rowspan="2" width="10%">Puntos</th>
+            </tr>
+            <tr>
+                <th class="text-center">1</th>
+                <th class="text-center">2</th>
+                <th class="text-center">3</th>
+                <th class="text-center">4</th>
+                <th class="text-center">5</th>
+            </tr>
+            </thead>
 
+            <tbody>
+
+            {% for c in criterios %}
+                <tr>
+                    <td rowspan="1"><h3>{{ c.nombre }}</h3></td>
+                    <td>{{ c.explicacion1 }}</td>
+                    <td>{{ c.explicacion2 }}</td>
+                    <td>{{ c.explicacion3 }}</td>
+                    <td>{{ c.explicacion4 }}</td>
+                    <td>{{ c.explicacion5 }}</td>
+                    <td>
+                        <fieldset id="group1">
+                            <label>1
+                                <input type="radio" value="1" name="group1">
+                            </label>
+                            <label>2
+                                <input type="radio" value="2" name="group1">
+                            </label>
+                            <label>3
+                                <input type="radio" value="2" name="group1">
+                            </label>
+                            <label>4
+                                <input type="radio" value="2" name="group1">
+                            </label>
+                            <label>5
+                                <input type="radio" value="2" name="group1">
+                            </label>
+                        </fieldset>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
         </table>
+        <input value="Enviar Puntuación" type="submit" >
     </div>
 {% endblock %}

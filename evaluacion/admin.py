@@ -8,7 +8,7 @@ class JuradoAdmin(admin.ModelAdmin):
 
 
 class CriterioAdmin(admin.ModelAdmin):
-    list_display = ('explicacion', 'tipo_jurado')
+    list_display = ('nombre', 'tipo_jurado')
 
 
 class EquipoAdmin(admin.ModelAdmin):

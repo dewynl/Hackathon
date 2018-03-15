@@ -4,7 +4,7 @@ from django.views.generic import FormView, RedirectView, ListView, DetailView
 
 from Hackathon import settings
 from evaluacion.forms.forms import LoginForm
-from evaluacion.models import Equipo
+from evaluacion.models import Equipo, Criterio, TipoJurado, Jurado
 
 
 class RootRedirectView(RedirectView):
@@ -43,3 +43,10 @@ class ListaEquiposEvaluar(LoginRequiredMixin, ListView):
 class EvaluarEquipo(DetailView):
     model = Equipo
     template_name = 'evaluar-equipo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EvaluarEquipo, self).get_context_data(**kwargs)
+        jurado = Jurado.objects.filter(user=self.request.user).first()
+        context['criterios'] = Criterio.objects.all().filter(tipo_jurado=jurado.tipo)
+        print(context['criterios'])
+        return context
