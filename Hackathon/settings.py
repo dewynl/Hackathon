@@ -24,7 +24,7 @@ SECRET_KEY = 'hxjlo=s334l)6h-k+fwd%rbm7ql6dt5oph_^pr!$c7^v%#o^!a'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '167.99.2.46']
+ALLOWED_HOSTS = ['localhost', '167.99.2.46', 'hackathonpucmm.tk']
 
 # Application definition
 
