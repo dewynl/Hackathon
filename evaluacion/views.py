@@ -48,5 +48,10 @@ class EvaluarEquipo(DetailView):
         context = super(EvaluarEquipo, self).get_context_data(**kwargs)
         jurado = Jurado.objects.filter(user=self.request.user).first()
         context['criterios'] = Criterio.objects.all().filter(tipo_jurado=jurado.tipo)
-        print(context['criterios'])
         return context
+
+    def post(self, request, *args, **kwargs):
+        evaluaciones = []
+        for i in request.POST.keys():
+            if 'group' in i:
+

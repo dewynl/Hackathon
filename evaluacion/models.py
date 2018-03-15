@@ -18,12 +18,12 @@ class Jurado(models.Model):
 
 
 class Criterio(models.Model):
-    nombre = models.CharField(max_length=12, null=False, blank=False, default='NombreDefault')
-    explicacion1 = models.TextField(max_length=150, null=False, default='')
-    explicacion2 = models.TextField(max_length=150, null=False, default='')
-    explicacion3 = models.TextField(max_length=150, null=False, default='')
-    explicacion4 = models.TextField(max_length=150, null=False, default='')
-    explicacion5 = models.TextField(max_length=150, null=False, default='')
+    nombre = models.CharField(max_length=12, null=False, blank=False, default='')
+    explicacion1 = models.TextField(max_length=250, null=False, default='')
+    explicacion2 = models.TextField(max_length=250, null=False, default='')
+    explicacion3 = models.TextField(max_length=250, null=False, default='')
+    explicacion4 = models.TextField(max_length=250, null=False, default='')
+    explicacion5 = models.TextField(max_length=250, null=False, default='')
     tipo_jurado = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
 
     def __str__(self):

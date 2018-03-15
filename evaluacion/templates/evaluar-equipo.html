@@ -38,55 +38,57 @@
 {% block content %}
     <div class="list-group">
         <h1>Equipo {{ object.nombre }}</h1>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th class="text-center" rowspan="2" width="15%">Criterio</th>
-                <th class="text-center" colspan="5">Rubrica</th>
-                <th class="text-center" rowspan="2" width="10%">Puntos</th>
-            </tr>
-            <tr>
-                <th class="text-center">1</th>
-                <th class="text-center">2</th>
-                <th class="text-center">3</th>
-                <th class="text-center">4</th>
-                <th class="text-center">5</th>
-            </tr>
-            </thead>
-
-            <tbody>
-
-            {% for c in criterios %}
+        <form action="/equipos-evaluar/equipo/{{ object.id }}" method="post">
+            {% csrf_token %}
+            <table class="table table-bordered">
+                <thead>
                 <tr>
-                    <td rowspan="1"><h3>{{ c.nombre }}</h3></td>
-                    <td>{{ c.explicacion1 }}</td>
-                    <td>{{ c.explicacion2 }}</td>
-                    <td>{{ c.explicacion3 }}</td>
-                    <td>{{ c.explicacion4 }}</td>
-                    <td>{{ c.explicacion5 }}</td>
-                    <td>
-                        <fieldset id="group1">
-                            <label>1
-                                <input type="radio" value="1" name="group1">
-                            </label>
-                            <label>2
-                                <input type="radio" value="2" name="group1">
-                            </label>
-                            <label>3
-                                <input type="radio" value="2" name="group1">
-                            </label>
-                            <label>4
-                                <input type="radio" value="2" name="group1">
-                            </label>
-                            <label>5
-                                <input type="radio" value="2" name="group1">
-                            </label>
-                        </fieldset>
-                    </td>
+                    <th class="text-center" rowspan="2" width="15%">Criterio</th>
+                    <th class="text-center" colspan="5">Rubrica</th>
+                    <th class="text-center" rowspan="2" width="10%">Puntos</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <input value="Enviar Puntuación" type="submit" >
+                <tr>
+                    <th class="text-center">1</th>
+                    <th class="text-center">2</th>
+                    <th class="text-center">3</th>
+                    <th class="text-center">4</th>
+                    <th class="text-center">5</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for c in criterios %}
+                    <tr>
+                        <td rowspan="1" class="text-center"><h3>{{ c.nombre }}</h3></td>
+                        <td class="text-center">{{ c.explicacion1 }}</td>
+                        <td class="text-center">{{ c.explicacion2 }}</td>
+                        <td class="text-center">{{ c.explicacion3 }}</td>
+                        <td class="text-center">{{ c.explicacion4 }}</td>
+                        <td class="text-center">{{ c.explicacion5 }}</td>
+                        <td class="text-center">
+                            <fieldset id="group1">
+                                <label>1
+                                    <input type="radio" value="1" name="group-{{ c.id }}">
+                                </label>
+                                <label>2
+                                    <input type="radio" value="2" name="group-{{ c.id }}">
+                                </label>
+                                <label>3
+                                    <input type="radio" value="3" name="group-{{ c.id }}">
+                                </label>
+                                <label>4
+                                    <input type="radio" value="4" name="group-{{ c.id }}">
+                                </label>
+                                <label>5
+                                    <input type="radio" value="5" name="group-{{ c.id }}">
+                                </label>
+                            </fieldset>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <input value="Enviar Puntuación" type="submit" class="input form-control">
+        </form>
     </div>
 {% endblock %}
