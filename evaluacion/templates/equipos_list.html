@@ -1,0 +1,60 @@
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+{% block navbar %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >Hackathon PUCMM-Emprende 2018</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Evaluar equipos</a></li>
+                    <li><a href="#">Resultados</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
+                    </a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="list-group">
+        <h1>Lista de Equipos</h1>
+        {% for e in object_list %}
+            <a href="equipo/{{ e.id }}" class="list-group-item list-group-item-action"> {{ e.nombre }}</a>
+        {% endfor %}
+        {% if is_paginated %}
+            <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/equipos-evaluar?page={{ page_obj.previous_page_number }}">Anterior </a>
+                {% endif %}
+                <span class="page-current">
+                    Pagina {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/equipos-evaluar?page={{ page_obj.next_page_number }}"> Siguiente</a>
+                {% endif %}
+            </span>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

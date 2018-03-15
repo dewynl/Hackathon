@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from evaluacion.views import LoginFormView, ListaEquiposEvaluar, RootRedirectView, EvaluarEquipo
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', RootRedirectView.as_view(), name='root'),
+    path('login/', LoginFormView.as_view(), name='iniciar-sesion'),
+    path('logout/', LoginFormView.as_view(), name='cerrar-sesion'),
+    path('equipos-evaluar/', ListaEquiposEvaluar.as_view(), name='equipos-evaluar'),
+    path('equipos-evaluar/equipo/<int:pk>', EvaluarEquipo.as_view(), name='equipos-evaluar'),
 ]
