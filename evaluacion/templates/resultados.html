@@ -18,16 +18,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >Hackathon PUCMM-Emprende 2018</a>
+                <a class="navbar-brand">Hackathon PUCMM-Emprende 2018</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="/equipos-evaluar">Evaluar equipos</a></li>
-                    <li><a href="/resultados">Resultados</a></li>
+                    <li><a href="/equipos-evaluar">Evaluar equipos</a></li>
+                    <li class="active"><a href="/resultados">Resultados</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
-                    </a></li>
+                    <li><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}</li>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
                 </ul>
             </div>
@@ -35,12 +34,29 @@
     </nav>
 {% endblock %}
 
+
 {% block content %}
     <div class="list-group">
-        <h1>Lista de Equipos</h1>
-        {% for e in object_list %}
-            <a href="equipo/{{ e.id }}" class="list-group-item list-group-item-action"> {{ e.nombre }}</a>
-        {% endfor %}
+        <h1>Resultados</h1>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td class="text-center"><b>Nombre Equipo</b></td>
+                <td class="text-center"><b>Puntaje</b></td>
+                <td class="text-center"><b>Detalle</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for e in object_list %}
+                <tr>
+                    <td class="text-center">{{ e.nombre }}</td>
+                    <td width="20%" class="text-center">{{ e.puntuacion }}</td>
+                    <td width="5%" class="text-center"><a class="btn btn-primary" href="/detalle-puntos/{{ e.id }}">
+                        <span class="glyphicon glyphicon-eye-open"></span></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
         {% if is_paginated %}
             <div class="pagination">
             <span class="page-links">
@@ -57,4 +73,5 @@
             </div>
         {% endif %}
     </div>
+
 {% endblock %}

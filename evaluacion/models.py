@@ -51,3 +51,15 @@ class Evaluacion(models.Model):
     puntaje = models.SmallIntegerField(null=False, default=0)
     jurado = models.ForeignKey(Jurado, on_delete=models.DO_NOTHING)
     equipo = models.ForeignKey(Equipo, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return 'Equipo: ' + self.equipo.nombre + ', Criterio: ' + self.criterio.nombre + \
+               ', Jurado: ' + self.jurado.user.first_name + ', Puntaje: ' + str(self.puntaje)
+
+
+class EquipoEvaluado(models.Model):
+    equipo = models.ForeignKey(Equipo, on_delete=models.DO_NOTHING)
+    jurado = models.ForeignKey(Jurado, on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return 'Evaluado equipo: ' + self.equipo.nombre + ' por jurado ' + self.jurado.user.first_name
