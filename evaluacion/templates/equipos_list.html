@@ -4,12 +4,12 @@
 <header>
     <title>Equipos - Hackathon PUCMM-Emprende</title>
     {# Load CSS and JavaScript #}
-{% bootstrap_css %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-{% bootstrap_javascript %}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
 </header>
 
 
@@ -22,7 +22,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand">Hackathon PUCMM-Emprende 2018</a>
+                <a class="navbar-brand">Hackathon PUCMM-Emprende</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -42,11 +42,13 @@
 {% block content %}
     <div class="list-group">
         <h1>Lista de Equipos</h1>
-        {% for e in object_list %}
-            <a href="equipo/{{ e.id }}" class="list-group-item list-group-item-action"> {{ e.nombre }}</a>
-        {% endfor %}
-        {% if is_paginated %}
-            <div class="pagination">
+        {% if object_list %}
+            {% for e in object_list %}
+                <a href="equipo/{{ e.id }}"
+                   class="text-center list-group-item list-group-item-action"> {{ e.nombre }}</a>
+            {% endfor %}
+            {% if is_paginated %}
+                <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
                     <a href="/equipos-evaluar?page={{ page_obj.previous_page_number }}">Anterior </a>
@@ -58,7 +60,10 @@
                     <a href="/equipos-evaluar?page={{ page_obj.next_page_number }}"> Siguiente</a>
                 {% endif %}
             </span>
-            </div>
+                </div>
+            {% endif %}
+        {% else%}
+            <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
         {% endif %}
     </div>
 {% endblock %}
