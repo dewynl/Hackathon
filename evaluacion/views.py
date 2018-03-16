@@ -90,7 +90,6 @@ class DetallePuntos(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetallePuntos, self).get_context_data(**kwargs)
         evaluaciones = Evaluacion.objects.filter(equipo=self.object)
-
         criterios_no_tecnicos = {}
         criterios_tecnicos = {}
         for e in evaluaciones:

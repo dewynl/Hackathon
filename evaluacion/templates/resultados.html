@@ -26,7 +26,8 @@
                     <li class="active"><a href="/resultados">Resultados</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}</li>
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
+                    </a></li>
                     <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
                 </ul>
             </div>
