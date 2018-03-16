@@ -10,15 +10,14 @@ class TipoJurado(object):
 
 class Jurado(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nombre = models.CharField(max_length=25, null=False)
     tipo = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
 
     def __str__(self):
-        return self.nombre
+        return self.user.first_name
 
 
 class Criterio(models.Model):
-    nombre = models.CharField(max_length=12, null=False, blank=False, default='')
+    nombre = models.CharField(max_length=50, null=False, blank=False, default='')
     explicacion1 = models.TextField(max_length=250, null=False, default='')
     explicacion2 = models.TextField(max_length=250, null=False, default='')
     explicacion3 = models.TextField(max_length=250, null=False, default='')

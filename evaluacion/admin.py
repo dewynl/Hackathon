@@ -4,7 +4,7 @@ from evaluacion.models import Jurado, Criterio, Equipo, Evaluacion, Participante
 
 
 class JuradoAdmin(admin.ModelAdmin):
-    list_display = ('user', 'nombre', 'tipo')
+    list_display = ('user', 'tipo')
 
 
 class CriterioAdmin(admin.ModelAdmin):
