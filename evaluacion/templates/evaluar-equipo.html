@@ -1,16 +1,43 @@
+<html>
 {# Load the tag library #}
 {% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-{% bootstrap_javascript %}
+<header>
+    <title>Evaluacion - Equipo {{ object.nombre }} - Hackathon PUCMM Emprende 2018</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+</header>
 
-{% include 'nav_bar.html' %}
-
+{% block navbar %}
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand">Hackathon PUCMM-Emprende 2018</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/equipos-evaluar">Evaluar equipos</a></li>
+                    <li><a href="/resultados">Resultados</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
+                    </a></li>
+                    <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Cerrar Sesion</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
 {% block content %}
     <div class="list-group">
         <h1>Equipo {{ object.nombre }}</h1>
@@ -69,3 +96,5 @@
         </form>
     </div>
 {% endblock %}
+
+</html>

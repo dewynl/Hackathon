@@ -1,13 +1,17 @@
+<html>
 {# Load the tag library #}
 {% load bootstrap3 %}
-
-{# Load CSS and JavaScript #}
+<header>
+    <title>Equipos - Hackathon PUCMM-Emprende</title>
+    {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 {% bootstrap_javascript %}
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
+</header>
+
 
 {% block navbar %}
     <nav class="navbar navbar-inverse">
@@ -18,7 +22,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >Hackathon PUCMM-Emprende 2018</a>
+                <a class="navbar-brand">Hackathon PUCMM-Emprende 2018</a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
@@ -58,3 +62,5 @@
         {% endif %}
     </div>
 {% endblock %}
+
+</html>

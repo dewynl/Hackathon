@@ -1,15 +1,18 @@
+<html>
 {# Load the tag library #}
 {% load bootstrap3 %}
+<header>
+    <title>Hackathon PUCMM-Emprende 2018</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-{% bootstrap_javascript %}
-
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-{% block form_login %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+</header>
+<body>
+    {% block form_login %}
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -50,4 +53,5 @@
         </div>
     </div>
 {% endblock %}
-
+</body>
+</html>

@@ -1,13 +1,17 @@
+<html>
 {# Load the tag library #}
 {% load bootstrap3 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-{% bootstrap_javascript %}
+<header>
+    <title>Puntuacion Detallada - {{ object.nombre }} - Hackathon PUCMM Emprende 2018</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+</header>
 
 {% block navbar %}
     <nav class="navbar navbar-inverse">
@@ -79,8 +83,9 @@
 
         <tr>
             <td bgcolor="#87ceeb" class="text-center"><b>TOTAL FINAL</b></td>
-            <td bgcolor="#87ceeb" class="text-center"><b>{{ total_final  }}</b></td>
+            <td bgcolor="#87ceeb" class="text-center"><b>{{ total_final }}</b></td>
         </tr>
         </tbody>
     </table>
 {% endblock %}
+</html>
