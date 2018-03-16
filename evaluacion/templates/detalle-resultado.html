@@ -40,7 +40,7 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-            <td class="text-center" colspan="2"><b>Criterios No Técnicos</b></td>
+            <td bgcolor="#d3d3d3" class="text-center" colspan="2"><b>Criterios No Técnicos</b></td>
         </tr>
         </thead>
         <tbody>
@@ -55,7 +55,11 @@
             </tr>
         {% endfor %}
         <tr>
-            <td class="text-center" colspan="2"><b>Criterios Técnicos</b></td>
+            <td class="text-center"><b>Total</b></td>
+            <td class="text-center"><b>{{ total_puntos_no_tecnicos }}</b></td>
+        </tr>
+        <tr>
+            <td class="text-center" bgcolor="#d3d3d3" colspan="2"><b>Criterios Técnicos</b></td>
         </tr>
         <tr>
             <td class="text-center"><b>Criterio</b></td>
@@ -67,6 +71,16 @@
                 <td class="text-center">{{ puntos }}</td>
             </tr>
         {% endfor %}
+        <tr>
+            <td class="text-center"><b>Total</b></td>
+            <td class="text-center"><b>{{ total_puntos_tecnicos }}</b></td>
+        </tr>
+        <tr>
+
+        <tr>
+            <td bgcolor="#87ceeb" class="text-center"><b>TOTAL FINAL</b></td>
+            <td bgcolor="#87ceeb" class="text-center"><b>{{ total_final  }}</b></td>
+        </tr>
         </tbody>
     </table>
 {% endblock %}

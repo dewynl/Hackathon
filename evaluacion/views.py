@@ -92,20 +92,29 @@ class DetallePuntos(LoginRequiredMixin, DetailView):
         evaluaciones = Evaluacion.objects.filter(equipo=self.object)
         criterios_no_tecnicos = {}
         criterios_tecnicos = {}
+
+        total_puntos_tecnicos = 0
+        total_puntos_no_tecnicos = 0
         for e in evaluaciones:
             if e.criterio.tipo_jurado == TipoJurado.JURADO_NO_TECNICO:
                 if e.criterio.nombre in criterios_no_tecnicos:
                     criterios_no_tecnicos[e.criterio.nombre] += e.puntaje
+                    total_puntos_no_tecnicos += e.puntaje
                 else:
                     criterios_no_tecnicos[e.criterio.nombre] = e.puntaje
+                    total_puntos_no_tecnicos += e.puntaje
+
             elif e.criterio.tipo_jurado == TipoJurado.JURADO_TECNICO:
                 if e.criterio.nombre in criterios_tecnicos:
                     criterios_tecnicos[e.criterio.nombre] += e.puntaje
+                    total_puntos_tecnicos += e.puntaje
                 else:
                     criterios_tecnicos[e.criterio.nombre] = e.puntaje
+                    total_puntos_tecnicos += e.puntaje
 
-        print(criterios_no_tecnicos)
-        print(criterios_tecnicos)
         context['criterios_no_tecnicos'] = criterios_no_tecnicos
         context['criterios_tecnicos'] = criterios_tecnicos
+        context['total_puntos_tecnicos'] = total_puntos_tecnicos
+        context['total_puntos_no_tecnicos'] = total_puntos_no_tecnicos
+        context['total_final'] = total_puntos_no_tecnicos + total_puntos_tecnicos
         return context
