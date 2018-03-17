@@ -12,7 +12,7 @@ class CriterioAdmin(admin.ModelAdmin):
 
 
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'puntuacion')
+    list_display = ('nombre', 'pk', 'puntuacion')
 
 
 class ParticipanteAdmin(admin.ModelAdmin):
