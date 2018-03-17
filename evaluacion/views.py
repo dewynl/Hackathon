@@ -48,7 +48,7 @@ class ListaEquiposEvaluar(LoginRequiredMixin, ListView):
         jurado = Jurado.objects.filter(user=self.request.user).first()
         equipos_evaluados = [e.equipo.id for e in EquipoEvaluado.objects.filter(jurado=jurado)]
         qs = qs.exclude(id__in=equipos_evaluados)
-        qs = qs.filter(habilitado=False)
+        qs = qs.filter(habilitado=True)
         return qs
 
 
