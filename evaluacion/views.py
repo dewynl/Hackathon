@@ -8,7 +8,7 @@ from Hackathon import settings
 from evaluacion.forms.forms import LoginForm
 from evaluacion.models import Equipo, Criterio, TipoJurado, Jurado, Evaluacion, EquipoEvaluado
 
-from random import shuffle, random
+from random import random
 
 
 class RootRedirectView(RedirectView):
@@ -39,7 +39,7 @@ class LogoutView(RedirectView):
 class ListaEquiposEvaluar(LoginRequiredMixin, ListView):
     model = Equipo
     template_name = 'equipos_list.html'
-    queryset = Equipo.objects.all()
+    queryset = Equipo.objects.filter(habilitado=True)
     paginate_by = 25
     login_url = settings.LOGIN_URL
 
@@ -48,6 +48,7 @@ class ListaEquiposEvaluar(LoginRequiredMixin, ListView):
         jurado = Jurado.objects.filter(user=self.request.user).first()
         equipos_evaluados = [e.equipo.id for e in EquipoEvaluado.objects.filter(jurado=jurado)]
         qs = qs.exclude(id__in=equipos_evaluados)
+        qs = qs.filter(habilitado=False)
         return qs
 
 
@@ -63,6 +64,7 @@ class EvaluarEquipo(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        ok = False
         equipo = Equipo.objects.filter(id=request.POST['equipo']).first()
         jurado = Jurado.objects.filter(user=self.request.user).first()
         for i in request.POST.keys():
@@ -73,7 +75,9 @@ class EvaluarEquipo(LoginRequiredMixin, DetailView):
                 e.save()
                 equipo.puntuacion += puntuacion
                 equipo.save()
-        EquipoEvaluado(equipo=equipo, jurado=jurado).save()
+                ok = True
+        if ok:
+            EquipoEvaluado(equipo=equipo, jurado=jurado).save()
         return redirect('/')
 
 

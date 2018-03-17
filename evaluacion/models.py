@@ -35,6 +35,7 @@ class Criterio(models.Model):
 class Equipo(models.Model):
     nombre = models.CharField(max_length=15, null=False, blank=False)
     puntuacion = models.IntegerField(default=0)
+    habilitado = models.BooleanField(null=False, default=True)
 
     def __str__(self):
         return self.nombre

@@ -26,6 +26,7 @@ class ParticipanteAdmin(admin.ModelAdmin):
 
 class EvaluacionAdmin(admin.ModelAdmin):
     list_display = ('criterio', 'puntaje', 'jurado', 'equipo')
+    search_fields = ('criterio', 'equipo')
 
 
 class EquipoEvaluadoAdmin(admin.ModelAdmin):
