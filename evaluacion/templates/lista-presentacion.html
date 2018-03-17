@@ -1,9 +1,7 @@
 <html>
-{# Load the tag library #}
 {% load bootstrap3 %}
-
 <header>
-    <title>Resultados - Hackathon PUCMM Emprende 2018</title>
+    <title>Equipos - Hackathon PUCMM-Emprende</title>
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -12,7 +10,7 @@
     {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
 </header>
-
+<body>
 {% block navbar %}
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -27,8 +25,8 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/equipos-evaluar">Evaluar equipos</a></li>
-                    <li class="active"><a href="/resultados">Resultados</a></li>
-                    <li><a href="/presentacion-equipos">Presentación de Proyectos</a></li>
+                    <li><a href="/resultados">Resultados</a></li>
+                    <li class="active"><a href="/presentacion-equipos">Presentación de Proyectos</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
@@ -39,32 +37,15 @@
         </div>
     </nav>
 {% endblock %}
-
-
 {% block content %}
     <div class="list-group">
-        <h1>Resultados</h1>
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <td class="text-center"><b>Nombre Equipo</b></td>
-                <td class="text-center"><b>Puntaje</b></td>
-                <td class="text-center"><b>Detalle</b></td>
-            </tr>
-            </thead>
-            <tbody>
+        <h1 class="text-center">Lista de Equipos</h1>
+        {% if object_list %}
             {% for e in object_list %}
-                <tr>
-                    <td class="text-center">{{ e.nombre }}</td>
-                    <td width="20%" class="text-center">{{ e.puntuacion }}</td>
-                    <td width="5%" class="text-center"><a class="btn btn-primary" href="/detalle-puntos/{{ e.id }}">
-                        <span class="glyphicon glyphicon-eye-open"></span></a></td>
-                </tr>
+                <p class="text-center list-group-item list-group-item-action">{{ e.nombre }}</p>
             {% endfor %}
-            </tbody>
-        </table>
-        {% if is_paginated %}
-            <div class="pagination">
+            {% if is_paginated %}
+                <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
                     <a href="/equipos-evaluar?page={{ page_obj.previous_page_number }}">Anterior </a>
@@ -76,9 +57,13 @@
                     <a href="/equipos-evaluar?page={{ page_obj.next_page_number }}"> Siguiente</a>
                 {% endif %}
             </span>
-            </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
         {% endif %}
     </div>
-
 {% endblock %}
+
+</body>
 </html>

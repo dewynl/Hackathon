@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from evaluacion.views import LoginFormView, ListaEquiposEvaluar, RootRedirectView, EvaluarEquipo, ResultadosEquipos, \
-    DetallePuntos
+    DetallePuntos, PresentacionEquiposList
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +28,5 @@ urlpatterns = [
     path('equipos-evaluar/equipo/<int:pk>', EvaluarEquipo.as_view(), name='equipos-evaluar'),
     path('resultados', ResultadosEquipos.as_view(), name='resultados'),
     path('detalle-puntos/<int:pk>', DetallePuntos.as_view(), name='detalle-puntos'),
+    path('presentacion-equipos', PresentacionEquiposList.as_view(), name='equipos-puntuacion'),
 ]

@@ -28,6 +28,8 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/equipos-evaluar">Evaluar equipos</a></li>
                     <li><a href="/resultados">Resultados</a></li>
+                    <li><a href="/presentacion-equipos">Presentación de Proyectos</a></li>
+
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
@@ -45,7 +47,7 @@
         {% if object_list %}
             {% for e in object_list %}
                 <a href="equipo/{{ e.id }}"
-                   class="text-center list-group-item list-group-item-action"> {{ e.nombre }}</a>
+                   class="text-center list-group-item list-group-item-action">{{ e.pk }} - {{ e.nombre }}</a>
             {% endfor %}
             {% if is_paginated %}
                 <div class="pagination">
@@ -62,7 +64,7 @@
             </span>
                 </div>
             {% endif %}
-        {% else%}
+        {% else %}
             <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
         {% endif %}
     </div>

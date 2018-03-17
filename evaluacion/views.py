@@ -1,11 +1,14 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.views.generic import FormView, RedirectView, ListView, DetailView
 
 from Hackathon import settings
 from evaluacion.forms.forms import LoginForm
 from evaluacion.models import Equipo, Criterio, TipoJurado, Jurado, Evaluacion, EquipoEvaluado
+
+from random import shuffle, random
 
 
 class RootRedirectView(RedirectView):
@@ -118,3 +121,17 @@ class DetallePuntos(LoginRequiredMixin, DetailView):
         context['total_puntos_no_tecnicos'] = total_puntos_no_tecnicos
         context['total_final'] = total_puntos_no_tecnicos + total_puntos_tecnicos
         return context
+
+
+class ShuffledPaginator(Paginator):
+    def page(self, number):
+        page = super(ShuffledPaginator, self).page(number)
+        random.shuffle(page.object_list)
+        return page
+
+
+class PresentacionEquiposList(LoginRequiredMixin, ListView):
+    login_url = settings.LOGIN_URL
+    model = Equipo
+    paginator_class = ShuffledPaginator
+    template_name = 'lista-presentacion.html'
