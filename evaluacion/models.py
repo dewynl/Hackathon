@@ -9,8 +9,11 @@ class TipoJurado(object):
 
 
 class Jurado(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     tipo = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)
+
+    class Meta:
+        unique_together = ('user', 'tipo')
 
     def __str__(self):
         return self.user.first_name
