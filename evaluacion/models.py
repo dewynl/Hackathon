@@ -64,6 +64,10 @@ class Evaluacion(models.Model):
         return 'Equipo: ' + self.equipo.nombre + ', Criterio: ' + self.criterio.nombre + \
                ', Jurado: ' + self.jurado.user.first_name + ', Puntaje: ' + str(self.puntaje)
 
+    def delete(self, *args, **kwargs):
+        self.equipo.puntuacion -= self.puntaje
+        self.equipo.save()
+
 
 class EquipoEvaluado(models.Model):
     equipo = models.ForeignKey(Equipo, on_delete=models.DO_NOTHING)
