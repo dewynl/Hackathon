@@ -28,7 +28,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/equipos-evaluar">Evaluar equipos</a></li>
                     <li class="active"><a href="/resultados">Resultados</a></li>
-                    <li><a href="/presentacion-equipos">Presentación de Proyectos</a></li>
+{% comment %}
+                    <li><a href="/presentacion-equipos" class="disabled">Presentación de Proyectos</a></li>
+{% endcomment %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user.get_username | capfirst }}
