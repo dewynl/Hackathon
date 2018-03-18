@@ -14,7 +14,7 @@ class CriterioAdmin(admin.ModelAdmin):
 
 
 class EquipoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'pk', 'puntuacion')
+    list_display = ('nombre', 'pk', 'puntuacion', 'habilitado')
     list_filter = ('nombre', 'puntuacion')
     search_fields = ('nombre', 'pk')
 
