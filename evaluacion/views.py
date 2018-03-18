@@ -92,7 +92,7 @@ class EvaluarEquipo(LoginRequiredMixin, DetailView):
 class ResultadosEquipos(LoginRequiredMixin, ListView):
     model = Equipo
     template_name = 'resultados.html'
-    queryset = Equipo.objects.all().order_by('-puntuacion')
+    queryset = Equipo.objects.filter(habilitado=True).order_by('-puntuacion')
     paginate_by = 25
     login_url = settings.LOGIN_URL
 
