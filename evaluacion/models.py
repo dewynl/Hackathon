@@ -8,6 +8,11 @@ class TipoJurado(object):
     TIPOS_JURADO = ((JURADO_TECNICO, 'JURADO TECNICO'), (JURADO_NO_TECNICO, 'JURADO NO TECNICO'))
 
 
+class CantidadCriterios(object):
+    CANTIDAD_CRITERIOS_NO_TECNICOS = 3
+    CANTIDAD_CRITERIOS_TECNICOS = 5
+
+
 class Jurado(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     tipo = models.SmallIntegerField(choices=TipoJurado.TIPOS_JURADO)

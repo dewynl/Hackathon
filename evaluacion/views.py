@@ -1,14 +1,15 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.views.generic import FormView, RedirectView, ListView, DetailView
 
 from Hackathon import settings
 from evaluacion.forms.forms import LoginForm
-from evaluacion.models import Equipo, Criterio, TipoJurado, Jurado, Evaluacion, EquipoEvaluado
+from evaluacion.models import Equipo, Criterio, TipoJurado, Jurado, Evaluacion, EquipoEvaluado, CantidadCriterios
 
-from random import random
+from random import random, shuffle
 
 
 class RootRedirectView(RedirectView):
@@ -67,15 +68,22 @@ class EvaluarEquipo(LoginRequiredMixin, DetailView):
         ok = False
         equipo = Equipo.objects.filter(id=request.POST['equipo']).first()
         jurado = Jurado.objects.filter(user=self.request.user).first()
+        cant = 0
         for i in request.POST.keys():
             if 'group' in i:
+                cant += 1
                 c = Criterio.objects.filter(id=int(i.split('-')[1])).first()
                 puntuacion = int(request.POST[i])
                 e = Evaluacion(criterio=c, jurado=jurado, equipo=equipo, puntaje=puntuacion)
                 e.save()
                 equipo.puntuacion += puntuacion
                 equipo.save()
-                ok = True
+
+        if jurado.tipo == TipoJurado.JURADO_TECNICO and cant == CantidadCriterios.CANTIDAD_CRITERIOS_TECNICOS:
+            ok = True
+        elif jurado.tipo == TipoJurado.JURADO_NO_TECNICO and cant == CantidadCriterios.CANTIDAD_CRITERIOS_NO_TECNICOS:
+            ok = True
+
         if ok:
             EquipoEvaluado(equipo=equipo, jurado=jurado).save()
         return redirect('/')
@@ -139,3 +147,11 @@ class PresentacionEquiposList(LoginRequiredMixin, ListView):
     model = Equipo
     paginator_class = ShuffledPaginator
     template_name = 'lista-presentacion.html'
+
+
+def equipos_random(request):
+    template = 'lista-presentacion.html'
+    if request.method == 'GET':
+        equipos = [e for e in Equipo.objects.filter(habilitado=True)]
+        shuffle(equipos)
+        return render(request=request, template_name=template, context={'equipos': equipos})

@@ -40,12 +40,31 @@
 {% block content %}
     <div class="list-group">
         <h1 class="text-center">Lista de Equipos</h1>
-        {% if object_list %}
-            {% for e in object_list %}
-                <p class="text-center list-group-item list-group-item-action">{{ e.nombre }}</p>
-            {% endfor %}
-            {% if is_paginated %}
-                <div class="pagination">
+        {% if equipos %}
+            <div style="margin-left:50px; margin-right:50px">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td class="text-center"><b>Número</b></td>
+                        <td class="text-center"><b>Nombre</b></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in equipos %}
+                        <tr>
+                            <td class="text-center">{{ e.pk }}</td>
+                            <td class="text-center">{{ e.nombre }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
+        {% endif %}
+        {% if is_paginated %}
+            <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
                     <a href="/equipos-evaluar?page={{ page_obj.previous_page_number }}">Anterior </a>
@@ -57,10 +76,7 @@
                     <a href="/equipos-evaluar?page={{ page_obj.next_page_number }}"> Siguiente</a>
                 {% endif %}
             </span>
-                </div>
-            {% endif %}
-        {% else %}
-            <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
