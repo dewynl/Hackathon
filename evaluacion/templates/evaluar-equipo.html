@@ -41,7 +41,7 @@
     </nav>
 {% endblock %}
 {% block content %}
-    <div class="list-group">
+    <div class="list-group" style="margin-right: 50px; margin-left: 50px">
         <h1>Equipo {{ object.nombre }}</h1>
         <form action="/equipos-evaluar/equipo/{{ object.id }}" method="post">
             {% csrf_token %}

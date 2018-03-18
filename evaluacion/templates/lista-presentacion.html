@@ -39,7 +39,7 @@
 {% endblock %}
 {% block content %}
     <div class="list-group">
-        <h1 class="text-center">Lista de Equipos</h1>
+        <h1 class="text-center">Orden de Presentaciones</h1>
         {% if equipos %}
             <div style="margin-left:50px; margin-right:50px">
                 <table class="table table-bordered">
@@ -59,9 +59,6 @@
                     </tbody>
                 </table>
             </div>
-
-        {% else %}
-            <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
         {% endif %}
         {% if is_paginated %}
             <div class="pagination">
