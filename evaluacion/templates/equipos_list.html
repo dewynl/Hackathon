@@ -28,7 +28,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/equipos-evaluar">Evaluar equipos</a></li>
                     <li><a href="/resultados">Resultados</a></li>
-{% comment %}
+                    {% comment %}
                     <li><a href="/presentacion-equipos">Presentación de Proyectos</a></li>
 {% endcomment %}
 
@@ -46,13 +46,26 @@
 {% block content %}
     <div class="list-group">
         <div style="margin-left: 50px; margin-right: 50px;">
-
             <h1>Lista de Equipos</h1>
             {% if object_list %}
-                {% for e in object_list %}
-                    <a href="equipo/{{ e.id }}"
-                       class="text-center list-group-item list-group-item-action">{{ e.pk }} - {{ e.nombre }}</a>
-                {% endfor %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td width="10%" class="text-center"><b>Número</b></td>
+                        <td class="text-center"><b>Nombre</b></td>
+                        <td class="text-center"><b>Evaluar</b></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in object_list %}
+                        <tr>
+                            <td class="text-center" width="10%">{{ e.pk }}</td>
+                            <td>{{ e.nombre }}</td>
+                            <td class="text-center" width="10%"><a class="btn btn-primary" href="equipo/{{ e.id }}">Evaluar</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             {% else %}
                 <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
             {% endif %}
