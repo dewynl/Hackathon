@@ -1,0 +1,74 @@
+<html>
+{# Load the tag library #}
+{% load bootstrap3 %}
+<head>
+    <meta name="pdfkit-page-size" content="Legal"/>
+    <meta name="pdfkit-orientation" content="Landscape"/>
+</head>
+<header>
+    <title>Puntuacion Detallada - {{ object.nombre }} - Hackathon PUCMM Emprende 2018</title>
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+
+</header>
+
+<body>
+{% block content %}
+
+    <h2 class="text-center">Puntuacion Detallada - {{ object.nombre }}</h2>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <td bgcolor="#d3d3d3" class="text-center" colspan="2"><b>Criterios No Técnicos</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+
+            <td class="text-center"><b>Criterio</b></td>
+            <td class="text-center"><b>Puntos</b></td>
+        </tr>
+        {% for criterio, puntos in criterios_no_tecnicos.items %}
+            <tr>
+                <td class="text-center">{{ criterio }}</td>
+                <td class="text-center">{{ puntos }}/10</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td class="text-center"><b>Total</b></td>
+            <td class="text-center"><b>{{ total_puntos_no_tecnicos }}/30</b></td>
+        </tr>
+        <tr>
+            <td class="text-center" bgcolor="#d3d3d3" colspan="2"><b>Criterios Técnicos</b></td>
+        </tr>
+        <tr>
+            <td class="text-center"><b>Criterio</b></td>
+            <td class="text-center"><b>Puntos</b></td>
+        </tr>
+        {% for criterio, puntos in criterios_tecnicos.items %}
+            <tr>
+                <td class="text-center">{{ criterio }}</td>
+                <td class="text-center">{{ puntos }}/20</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td class="text-center"><b>Total</b></td>
+            <td class="text-center"><b>{{ total_puntos_tecnicos }}/100</b></td>
+        </tr>
+        <tr>
+
+        <tr>
+            <td bgcolor="#87ceeb" class="text-center"><b>TOTAL FINAL</b></td>
+            <td bgcolor="#87ceeb" class="text-center"><b>{{ total_final }}/130</b></td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
+</body>
+</html>

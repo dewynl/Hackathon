@@ -44,6 +44,12 @@ class ListaEquiposEvaluar(LoginRequiredMixin, ListView):
     paginate_by = 25
     login_url = settings.LOGIN_URL
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(ListaEquiposEvaluar, self).get_context_data(**kwargs)
+        jurado = Jurado.objects.filter(user=self.request.user).first()
+        context['jurado'] = jurado
+        return context
+
     def get_queryset(self):
         qs = Equipo.objects.all()
         jurado = Jurado.objects.filter(user=self.request.user).first()
@@ -104,6 +110,43 @@ class DetallePuntos(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(DetallePuntos, self).get_context_data(**kwargs)
+        evaluaciones = Evaluacion.objects.filter(equipo=self.object)
+        criterios_no_tecnicos = {}
+        criterios_tecnicos = {}
+
+        total_puntos_tecnicos = 0
+        total_puntos_no_tecnicos = 0
+        for e in evaluaciones:
+            if e.criterio.tipo_jurado == TipoJurado.JURADO_NO_TECNICO:
+                if e.criterio.nombre in criterios_no_tecnicos:
+                    criterios_no_tecnicos[e.criterio.nombre] += e.puntaje
+                    total_puntos_no_tecnicos += e.puntaje
+                else:
+                    criterios_no_tecnicos[e.criterio.nombre] = e.puntaje
+                    total_puntos_no_tecnicos += e.puntaje
+
+            elif e.criterio.tipo_jurado == TipoJurado.JURADO_TECNICO:
+                if e.criterio.nombre in criterios_tecnicos:
+                    criterios_tecnicos[e.criterio.nombre] += e.puntaje
+                    total_puntos_tecnicos += e.puntaje
+                else:
+                    criterios_tecnicos[e.criterio.nombre] = e.puntaje
+                    total_puntos_tecnicos += e.puntaje
+
+        context['criterios_no_tecnicos'] = criterios_no_tecnicos
+        context['criterios_tecnicos'] = criterios_tecnicos
+        context['total_puntos_tecnicos'] = total_puntos_tecnicos
+        context['total_puntos_no_tecnicos'] = total_puntos_no_tecnicos
+        context['total_final'] = total_puntos_no_tecnicos + total_puntos_tecnicos
+        return context
+
+
+class DetallePuntosReporte(DetailView):
+    model = Equipo
+    template_name = 'detalle-resultado-reporte.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(DetallePuntosReporte, self).get_context_data(**kwargs)
         evaluaciones = Evaluacion.objects.filter(equipo=self.object)
         criterios_no_tecnicos = {}
         criterios_tecnicos = {}

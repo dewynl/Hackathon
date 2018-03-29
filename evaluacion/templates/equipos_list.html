@@ -47,27 +47,30 @@
     <div class="list-group">
         <div style="margin-left: 50px; margin-right: 50px;">
             <h1>Lista de Equipos</h1>
-            {% if object_list %}
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <td width="10%" class="text-center"><b>Número</b></td>
-                        <td class="text-center"><b>Nombre</b></td>
-                        <td class="text-center"><b>Evaluar</b></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for e in object_list %}
+            {% if jurado %}
+                {% if object_list %}
+                    <table class="table table-bordered">
+                        <thead>
                         <tr>
-                            <td class="text-center" width="10%">{{ e.pk }}</td>
-                            <td>{{ e.nombre }}</td>
-                            <td class="text-center" width="10%"><a class="btn btn-primary" href="equipo/{{ e.id }}">Evaluar</a></td>
+                            <td width="10%" class="text-center"><b>Número</b></td>
+                            <td class="text-center"><b>Nombre</b></td>
+                            <td class="text-center"><b>Evaluar</b></td>
                         </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
+                        </thead>
+                        <tbody>
+                        {% for e in object_list %}
+                            <tr>
+                                <td class="text-center" width="10%">{{ e.pk }}</td>
+                                <td>{{ e.nombre }}</td>
+                                <td class="text-center" width="10%"><a class="btn btn-primary" href="equipo/{{ e.id }}">Evaluar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h2 class="text-center">TODOS LOS EQUIPOS EVALUADOS</h2>
+                {% endif %}
             {% endif %}
         </div>
         {% if is_paginated %}
